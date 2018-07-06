@@ -1,0 +1,5 @@
+## Interface: 80000
+## Title: |cff3399FFDerp|rFrame|cff3399FFScaler|r
+## Author: Derp
+## Notes: Scales large UIScale frames to less obnoxious levels.
+DerpFrameScaler.lua
