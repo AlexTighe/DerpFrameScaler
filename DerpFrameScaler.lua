@@ -1,5 +1,4 @@
 -- Lazy scaling of frames I want to do because I play at a stupid UIScale
--- This is BfA Version
 local LoadFrame = CreateFrame("Frame")
 LoadFrame:RegisterEvent("PLAYER_LOGIN")
 local scaler = 0.75
@@ -15,6 +14,9 @@ LoadFrame:SetScript("OnEvent", function(self,event,...)
 	
 	
 
+	
+	Confused:GetParent():SetAlpha(0) -- for BfA Beta Feedback box
+	Confused:GetParent():SetScale(0.1) -- for BfA Beta Feedback box
 	AzeriteEmpoweredItemUI:SetScale(scaler) -- for BfA
 	CommunitiesFrame:SetScale(scaler) -- for BfA
 	CollectionsJournal:SetScale(scaler)
