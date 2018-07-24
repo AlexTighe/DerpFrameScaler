@@ -12,38 +12,42 @@ LoadFrame:SetScript("OnEvent", function(self,event,...)
 	LoadAddOn("Blizzard_TalentUI")
 	LoadAddOn("Blizzard_EncounterJournal")
 	LoadAddOn("Blizzard_Collections")
+	LoadAddOn("Blizzard_ItemSocketingUI")
 	LoadAddOn("Blizzard_InspectUI")
 	LoadAddOn("Blizzard_GuildUI") -- So I can use old Guild UI, and use Communities as a "Chat History"
 	LoadAddOn("Blizzard_TradeSkillUI")
+	LoadAddOn("Blizzard_MacroUI")
 	
-	-- Chat Widget hiding
-	ChatFrameToggleVoiceDeafenButton:ClearAllPoints()
-	ChatFrameToggleVoiceDeafenButton:Hide() 
-	ChatFrameToggleVoiceMuteButton:ClearAllPoints()
-	ChatFrameToggleVoiceMuteButton:Hide()
-	ChatFrameChannelButton:ClearAllPoints()
-	ChatFrameChannelButton:Hide()
+	-- Chat Shit Hiding (new 8.0 stuff) I should probs add this to bChat instead of dfs
+	kysChat()
+	ChatFrame1ThumbTexture:ClearAllPoints()
+	ChatFrame1ThumbTexture:Hide()
+	ChatFrame1.ScrollBar:ClearAllPoints()
+	ChatFrame1.ScrollBar:Hide()
 	
-	-- Scaling Frames to non awful sizes
+	-- Frame Scaling
+	CharacterFrame:SetScale(scaler)
 	AzeriteEmpoweredItemUI:SetScale(scaler) 
-	CommunitiesFrame:SetScale(scaler) 
-	WarboardQuestChoiceFrame:SetScale(scaler) 
-	GarrisonLandingPage:SetScale(scaler)
+	ItemSocketingFrame:SetScale(scaler)
 	InspectFrame:SetScale(scaler)
+	CommunitiesFrame:SetScale(scaler) 
+	GuildFrame:SetScale(scaler)
+	FriendsFrame:SetScale(scaler)
 	GossipFrame:SetScale(scaler)
+	QuestFrame:SetScale(scaler)
+	GarrisonLandingPage:SetScale(scaler)
+	WarboardQuestChoiceFrame:SetScale(scaler) 
 	CollectionsJournal:SetScale(scaler)
 	EncounterJournal:SetScale(scaler)
 	AchievementFrame:SetScale(scaler)
-	FriendsFrame:SetScale(scaler)
-	CharacterFrame:SetScale(scaler)
 	SpellBookFrame:SetScale(scaler)
 	PVEFrame:SetScale(scaler)
 	PlayerTalentFrame:SetScale(scaler)
-	QuestFrame:SetScale(scaler)
 	MerchantFrame:SetScale(scaler)
 	WardrobeFrame:SetScale(scaler)
 	TradeSkillFrame:SetScale(scaler)
-	GuildFrame:SetScale(scaler)
+	MailFrame:SetScale(scaler)
+	MacroFrame:SetScale(scaler)
 	
 	-- Dirty little hook on ToggleGuildFrame
 	ToggleGuildFrame = function() 
@@ -78,6 +82,21 @@ end
 head:RegisterEvent("ADDON_LOADED")
 head:SetScript("OnEvent", head.OnEvent)
 
+-- If I ever actually use Blizz VChat
+-- Activate
+local VoiceActive = CreateFrame("Frame")
+VoiceActive:RegisterEvent("VOICE_CHAT_CHANNEL_ACTIVATED")
+VoiceActive:SetScript("OnEvent",function(self,event,...)
+	kysChat()
+end)
+
+-- Deactivate
+local VoiceDeactive = CreateFrame("Frame")
+VoiceDeactive:RegisterEvent("VOICE_CHAT_CHANNEL_DEACTIVATED")
+VoiceDeactive:SetScript("OnEvent",function(self,event,...)
+	kysChat()
+end)
+
 -- Manually setting Guildframe to show roster on show
 function showRosterHack()
 	ButtonFrameTemplate_HideButtonBar(GuildFrame);
@@ -92,6 +111,12 @@ function showRosterHack()
 	PanelTemplates_SetTab(GuildFrame, 2); 
 end
 
-
-
-
+-- Fucking some chat buttons off
+function kysChat()
+	ChatFrameToggleVoiceDeafenButton:ClearAllPoints()
+	ChatFrameToggleVoiceDeafenButton:Hide() 
+	ChatFrameToggleVoiceMuteButton:ClearAllPoints()
+	ChatFrameToggleVoiceMuteButton:Hide()
+	ChatFrameChannelButton:ClearAllPoints()
+	ChatFrameChannelButton:Hide()
+end
